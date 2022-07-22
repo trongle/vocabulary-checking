@@ -35,7 +35,7 @@ export default {
       { en: 'refreeze', vn: 'đóng băng lại' },
       { en: 'permafrost', vn: 'băng vĩnh cữu' },
       { en: 'melt', vn: 'tan ra' },
-      { en: 'knock-on', vn: 'ảnh hưởng dây chuyền' },
+      { en: 'knock-on effect', vn: 'ảnh hưởng dây chuyền' },
       { en: 'virtually', vn: 'hầu như' },
       { en: 'precipitation', vn: 'lượng mưa' },
       { en: 'increased', vn: 'tăng lên' },
@@ -68,7 +68,7 @@ export default {
       { en: 'abandoned', vn: 'bị bỏ rơi' },
       { en: 'nomadic ways', vn: 'lối sống du mục' },
       { en: 'isolate', vn: 'cô lập' },
-      { en: 'relay on', vn: 'dựa vào' },
+      { en: 'rely on', vn: 'dựa vào' },
     ]);
     const currentWord = ref(null);
     const succeed = ref(localStorage.getItem('succeed') || 0);
@@ -80,6 +80,8 @@ export default {
     }
 
     function check(event) {
+      alert(event.keyCode);
+      return;
       event.target.value === currentWord.value.en
         ? succeed.value++
         : failed.value++;
@@ -94,18 +96,19 @@ export default {
 
     nextWord(vocabularies.length);
 
-    return { currentWord, succeed, failed };
+    return { currentWord, succeed, failed, check };
   },
 };
 </script>
 
 <template>
   <h1>Vocabulary Checking</h1>
-  {{ currentWord.vn }}: <input @keyup.enter="check" /> &nbsp;<span
-    style="color: green"
-    >{{ succeed }}</span
+  {{ currentWord.vn }}: <input @keyup="check" />
+
+  &nbsp;<span style="color: green">{{ succeed }}</span> &nbsp;<span
+    style="color: red"
+    >{{ failed }}</span
   >
-  &nbsp;<span style="color: red">{{ failed }}</span>
 </template>
 
 <style>
